@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Triángulos</title>
+    <style>
+        /* CSS: Diseño básico y limpio */
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f2f5;
+            margin: 0;
+        }
+        .container {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 300px;
+        }
+        input {
+            width: 80%;
+            padding: 8px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #resultado {
+            margin-top: 20px;
+            font-weight: bold;
+            color: #333;
+            min-height: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>¿Qué triángulo es?</h2>
+        <p>Ingresa los 3 lados:</p>
+        
+        <input type="number" id="lado1" placeholder="Lado 1">
+        <input type="number" id="lado2" placeholder="Lado 2">
+        <input type="number" id="lado3" placeholder="Lado 3">
+        
+        <button onclick="calcularTriangulo()">Analizar</button>
+        
+        <div id="resultado"></div>
+    </div>
+
+    <script>
+        // JavaScript: La lógica del programa
+        function calcularTriangulo() {
+            // 1. Obtener los valores de las cajas de texto
+            let l1 = parseFloat(document.getElementById('lado1').value);
+            let l2 = parseFloat(document.getElementById('lado2').value);
+            let l3 = parseFloat(document.getElementById('lado3').value);
+            let mensaje = "";
+
+            // 2. Validar que sean números y sean positivos
+            if (isNaN(l1) || isNaN(l2) || isNaN(l3) || l1 <= 0 || l2 <= 0 || l3 <= 0) {
+                mensaje = "Por favor, ingresa números positivos válidos.";
+            } 
+            // 3. Validar la desigualdad triangular (la suma de dos lados siempre debe ser mayor al tercero)
+            else if (l1 + l2 <= l3 || l1 + l3 <= l2 || l2 + l3 <= l1) {
+                mensaje = "Con esos lados NO se puede formar un triángulo.";
+            } 
+            // 4. Determinar el tipo de triángulo
+            else {
+                if (l1 === l2 && l2 === l3) {
+                    mensaje = "Es un triángulo Equilátero (3 lados iguales).";
+                } else if (l1 === l2 || l1 === l3 || l2 === l3) {
+                    mensaje = "Es un triángulo Isósceles (2 lados iguales).";
+                } else {
+                    mensaje = "Es un triángulo Escaleno (3 lados diferentes).";
+                }
+            }
+
+            // 5. Mostrar el resultado en la pantalla
+            document.getElementById('resultado').innerText = mensaje;
+        }
+    </script>
+
+</body>
+</html>
